@@ -89,5 +89,43 @@ def ver_estadisticas():
     print(f"Promedio de sueldos: ${promedio}")
     print(f"Media geométrica de sueldos: ${media_geom}")
 
+#función para mostrar el detalle de los sueldos de los trabajadores, según la siguiente regla de negocio:
+#Descuento salud 7%
+#Descuento AFP 12%
+#Sueldo líquido calculado en base al sueldo base menos el descuento en salud y menos el descuento afp
+
+def reporte_sueldos():
+    desc_salud = 0.07  
+    desc_afp = 0.12    
+    
+    with open('reporte_sueldos.csv', 'w', newline='') as csvfile:
+        # darle los nombres a las colujmnas
+        nombre_arch = ['Nombre empleado', 'Sueldo Base', 'Descuento Salud', 'Descuento AFP', 'Sueldo Líquido']
+        writer = csv.DictWriter(csvfile, nombre_arch=nombre_arch)
+
+        # escribir los encabezads
+        writer.writeheader()
+        # escribir los datos de los trabajdores
+        for i, sueldo in enumerate(sueldos):
+            salud = sueldo * desc_salud
+            afp = sueldo * desc_afp
+            sueldo_liq = sueldo - salud - afp
+            writer.writerow({
+                'Nombre empleado': trabajadores[i],
+                'Sueldo Base': sueldo,
+                'Descuento Salud': salud,
+                'Descuento AFP': afp,
+                'Sueldo Líquido': sueldo_liq
+            })
+
+    print("Reporte generado y exportado a 'reporte_sueldos.csv'")
+
+    #Funcion para dsalir del progrmama
+def salir():
+    print("Finalizando programa...")
+    print("\nNombre: Daniela Gómez Palacios, \nRUT: 18.593.726-7")
 
 
+
+if __name__ == "__main__":
+    menu()
