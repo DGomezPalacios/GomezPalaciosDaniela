@@ -27,7 +27,15 @@ def menu():
             generar_sueldos()
         elif opcion == '2':
             clasificar_sueldos()
-
+        elif opcion == '3':
+            estadisticas_sueldos()
+        elif opcion == '4':
+            reporte_sueldos()
+        elif opcion == '5':
+            salir()
+            break
+        else:
+            print("Opción no válida, intente nuevamente.")
 
 
 #Función para asignar sueldos aleatorios
@@ -36,10 +44,26 @@ def generar_sueldos():
     sueldos = [random.randint(300000, 2500000) for _ in range(10)]
     print("Sueldos asignados:", sueldos)
 
-#Funcion para clasificar sueldos
+#Funcion para clasificar sueldos en 3 categotrias
 
 def clasificar_sueldos():
-    sueldos_ordenados = sorted(sueldos)
-    mediana = sueldos_ordenados[len(sueldos_ordenados) // 2]
-    print("Sueldo medio:", mediana)
+    sueldo_menor = [(trabajadores[i], sueldo) for i, sueldo in enumerate(sueldos) if sueldo < 800000]
+    sueldo_medio = [(trabajadores[i], sueldo) for i, sueldo in enumerate(sueldos) if 800000 <= sueldo <= 2000000]
+    sueldo_alto = [(trabajadores[i], sueldo) for i, sueldo in enumerate(sueldos) if sueldo > 2000000]
+
+
+    # Mostrar sueldos menores a $800.000
+    print("Sueldos menores a $800.000 TOTAL:", len(sueldo_menor))
+    for t in sueldo_menor:
+        print(f"Nombre empleado: {t[0]} Sueldo: ${t[1]}")
+    
+    # Mostrar sueldos entre $800.000 y $2.000.000
+    print("\nSueldos entre $800.000 y $2.000.000 TOTAL:", len(sueldo_medio))
+    for t in sueldo_medio:
+        print(f"Nombre empleado: {t[0]} Sueldo: ${t[1]}")
+    
+    # Mostrar sueldos superiores a $2.000.000
+    print("\nSueldos superiores a $2.000.000 TOTAL:", len(sueldo_alto))
+    for t in sueldo_alto:
+        print(f"Nombre empleado: {t[0]} Sueldo: ${t[1]}")
 
