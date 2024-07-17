@@ -51,19 +51,43 @@ def clasificar_sueldos():
     sueldo_medio = [(trabajadores[i], sueldo) for i, sueldo in enumerate(sueldos) if 800000 <= sueldo <= 2000000]
     sueldo_alto = [(trabajadores[i], sueldo) for i, sueldo in enumerate(sueldos) if sueldo > 2000000]
 
-
     # Mostrar sueldos menores a $800.000
+
     print("Sueldos menores a $800.000 TOTAL:", len(sueldo_menor))
     for t in sueldo_menor:
         print(f"Nombre empleado: {t[0]} Sueldo: ${t[1]}")
     
     # Mostrar sueldos entre $800.000 y $2.000.000
+
     print("\nSueldos entre $800.000 y $2.000.000 TOTAL:", len(sueldo_medio))
     for t in sueldo_medio:
         print(f"Nombre empleado: {t[0]} Sueldo: ${t[1]}")
     
     # Mostrar sueldos superiores a $2.000.000
+
     print("\nSueldos superiores a $2.000.000 TOTAL:", len(sueldo_alto))
     for t in sueldo_alto:
         print(f"Nombre empleado: {t[0]} Sueldo: ${t[1]}")
+    
+    #sumar el toal de sueldos
+
+    total_sueldos = sum(sueldos)
+    print(f"\nTOTAL SUELDOS: ${total_sueldos}")
+
+#Funcion de estadisticas de sueldos
+
+def ver_estadisticas():
+    sueldo_max = max(sueldos)
+    sueldo_min = min(sueldos)
+    promedio = sum(sueldos) / len(sueldos)
+    media_geom = math.exp(sum(math.log(s) for s in sueldos) / len(sueldos))
+
+    #impimir
+    print("\nEstadísticas:")
+    print(f"Sueldo máximo: ${sueldo_max}")
+    print(f"Sueldo mínimo: ${sueldo_min}")
+    print(f"Promedio de sueldos: ${promedio}")
+    print(f"Media geométrica de sueldos: ${media_geom}")
+
+
 
