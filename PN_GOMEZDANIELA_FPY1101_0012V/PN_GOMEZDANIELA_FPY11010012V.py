@@ -76,7 +76,7 @@ def clasificar_sueldos():
 
 #Funcion de estadisticas de sueldos
 
-def ver_estadisticas():
+def estadisticas_sueldos():
     sueldo_max = max(sueldos)
     sueldo_min = min(sueldos)
     promedio = sum(sueldos) / len(sueldos)
