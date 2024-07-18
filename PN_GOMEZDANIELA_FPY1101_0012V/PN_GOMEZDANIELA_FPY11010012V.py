@@ -6,7 +6,7 @@ import math
 #forma aleatoria entre $300.000 y $2.500.000. Utilice la siguiente lista para asignar los sueldos a cada empleado
 
 #Listas para guardar trabajadores y sueldos
-trabajadores = ["Juan Pérez", "María García", "Carlos López", "Ana Martínez", "Pedro Rodríguez", "Laura Hernández", "Miguel Sánchez", "Isabel Gómez", "Francisco Díaz", "Elena Fernández"]
+trabajadores = ["Juan Perez", "Maria Garcia", "Carlos Lopez", "Ana Martinez", "Pedro Rodriguez", "Laura Hernandez", "Miguel Sanchez", "Isabel Gomez", "Francisco Diaz", "Elena Fernandez"]
 sueldos = {}
 
 #Menú
@@ -60,19 +60,19 @@ def clasificar_sueldos():
             clasificados["+2mm"].append(empleado)
     
     print("\nClasificación de sueldos:")
-    print("Sueldos menores a $800.000:", len(clasificados["<800"]))
+    print("\nSueldos menores a $800.000:", len(clasificados["<800"]))
     for t in clasificados["<800"]:
-        print(f"Nombre empleado: {t} Sueldo: ${sueldos[t]}")
+        print(f"Nombre empleado: {t}    Sueldo: ${sueldos[t]}")
     
         # Mostrar sueldos entre $800.000 y $2.000.000
-    print("Sueldos entre $800.000 y $2.000.000:", len(clasificados["800>=2mm"]))
+    print("\nSueldos entre $800.000 y $2.000.000:", len(clasificados["800>=2mm"]))
     for t in clasificados["800>=2mm"]:
-        print(f"Nombre empleado: {t} Sueldo: ${sueldos[t]}")
+        print(f"Nombre empleado: {t}  Sueldo: ${sueldos[t]}")
     
     # Mostrar sueldos superiores a $2.000.000
-    print("Sueldos superiores a $2.000.000:", len(clasificados["+2mm"]))
+    print("\nSueldos superiores a $2.000.000:", len(clasificados["+2mm"]))
     for t in clasificados["+2mm"]:
-        print(f"Nombre empleado: {t} Sueldo: ${sueldos[t]}")
+        print(f"Nombre empleado: {t}    Sueldo: ${sueldos[t]}")
     
     #sumar el toal de sueldos
 
@@ -105,32 +105,34 @@ def reporte_sueldos():
     desc_afp = 0.12    
     
     with open('reporte_sueldos.csv', 'w', newline='') as csvfile:
-        # darle los nombres a las colujmnas
-        fieldnames = ['Nombre empleado', 'Sueldo Base', 'Descuento Salud', 'Descuento AFP', 'Sueldo Líquido']
+        # Darle los nombres a las columnas
+        fieldnames = ['Nombre empleado', 'Sueldo Base', 'Descuento Salud', 'Descuento AFP', 'Sueldo Liquido']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-        # escribir los encabezads
+        # Escribir los encabezados
         writer.writeheader()
-        # escribir los datos de los trabajdores
-        for i, sueldo in enumerate(sueldos):
+        # Escribir los datos de los trabajadores
+        print("\nReporte de sueldos:")
+        print(f"{'Nombre empleado':<20} {'Sueldo Base':<12} {'Descuento Salud':<15} {'Descuento AFP':<12} {'Sueldo Líquido':<15}")
+        for empleado, sueldo in sueldos.items():
             salud = sueldo * desc_salud
             afp = sueldo * desc_afp
             sueldo_liq = sueldo - salud - afp
             writer.writerow({
-                'Nombre empleado': trabajadores[i],
+                'Nombre empleado': empleado,
                 'Sueldo Base': sueldo,
                 'Descuento Salud': salud,
                 'Descuento AFP': afp,
-                'Sueldo Líquido': sueldo_liq
+                'Sueldo Liquido': sueldo_liq
             })
+            print(f"{empleado:<20} ${sueldo:<11} ${salud:<14.2f} ${afp:<11.2f} ${sueldo_liq:<14.2f}")
 
-    print("Reporte generado y exportado a 'reporte_sueldos.csv'")
+    print("\nReporte generado y exportado a 'reporte_sueldos.csv'")
 
     #Funcion para dsalir del progrmama
 def salir():
-    print("Finalizando programa...")
+    print("\nFinalizando programa...")
     print("\nNombre: Daniela Gómez Palacios \nRUT: 18.593.726-7")
-
 
 
 if __name__ == "__main__":
