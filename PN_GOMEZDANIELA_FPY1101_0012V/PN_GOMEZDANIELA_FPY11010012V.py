@@ -7,7 +7,7 @@ import math
 
 #Listas para guardar trabajadores y sueldos
 trabajadores = ["Juan Pérez", "María García", "Carlos López", "Ana Martínez", "Pedro Rodríguez", "Laura Hernández", "Miguel Sánchez", "Isabel Gómez", "Francisco Díaz", "Elena Fernández"]
-sueldos = []
+sueldos = {}
 
 #Menú
 def menu():
@@ -41,46 +41,52 @@ def menu():
 #Función para asignar sueldos aleatorios
 
 def generar_sueldos():
-    sueldos = [random.randint(300000, 2500000) for _ in range(10)]
-    print("Sueldos asignados:", sueldos)
+    for i in range(10):
+        sueldos[trabajadores[i]] = random.randint(300000, 2500000)
+    print("Sueldos asignados:")
+    for trabajador, sueldo in sueldos.items():
+        print(f"Trabajador: {trabajador}, Sueldo: ${sueldo}")
 
 #Funcion para clasificar sueldos en 3 categotrias
 
 def clasificar_sueldos():
-    sueldo_menor = [(trabajadores[i], sueldo) for i, sueldo in enumerate(sueldos) if sueldo < 800000]
-    sueldo_medio = [(trabajadores[i], sueldo) for i, sueldo in enumerate(sueldos) if 800000 <= sueldo <= 2000000]
-    sueldo_alto = [(trabajadores[i], sueldo) for i, sueldo in enumerate(sueldos) if sueldo > 2000000]
-
-    # Mostrar sueldos menores a $800.000
-
-    print("Sueldos menores a $800.000 TOTAL:", len(sueldo_menor))
-    for t in sueldo_menor:
-        print(f"Nombre empleado: {t[0]} Sueldo: ${t[1]}")
+    clasificados = {"<800": [], "800>=2mm": [], "+2mm": []}
+    for empleado, sueldo in sueldos.items():
+        if sueldo < 800000:
+            clasificados["<800"].append(empleado)
+        elif 800000 <= sueldo <= 2000000:
+            clasificados["800>=2mm"].append(empleado)
+        else:
+            clasificados["+2mm"].append(empleado)
     
-    # Mostrar sueldos entre $800.000 y $2.000.000
-
-    print("\nSueldos entre $800.000 y $2.000.000 TOTAL:", len(sueldo_medio))
-    for t in sueldo_medio:
-        print(f"Nombre empleado: {t[0]} Sueldo: ${t[1]}")
+    print("\nClasificación de sueldos:")
+    print("Sueldos menores a $800.000:", len(clasificados["<800"]))
+    for t in clasificados["<800"]:
+        print(f"Nombre empleado: {t} Sueldo: ${sueldos[t]}")
+    
+        # Mostrar sueldos entre $800.000 y $2.000.000
+    print("Sueldos entre $800.000 y $2.000.000:", len(clasificados["800>=2mm"]))
+    for t in clasificados["800>=2mm"]:
+        print(f"Nombre empleado: {t} Sueldo: ${sueldos[t]}")
     
     # Mostrar sueldos superiores a $2.000.000
-
-    print("\nSueldos superiores a $2.000.000 TOTAL:", len(sueldo_alto))
-    for t in sueldo_alto:
-        print(f"Nombre empleado: {t[0]} Sueldo: ${t[1]}")
+    print("Sueldos superiores a $2.000.000:", len(clasificados["+2mm"]))
+    for t in clasificados["+2mm"]:
+        print(f"Nombre empleado: {t} Sueldo: ${sueldos[t]}")
     
     #sumar el toal de sueldos
 
-    total_sueldos = sum(sueldos)
+    total_sueldos = sum(sueldos.values())
     print(f"\nTOTAL SUELDOS: ${total_sueldos}")
 
 #Funcion de estadisticas de sueldos
 
 def estadisticas_sueldos():
-    sueldo_max = max(sueldos)
-    sueldo_min = min(sueldos)
-    promedio = sum(sueldos) / len(sueldos)
-    media_geom = math.exp(sum(math.log(s) for s in sueldos) / len(sueldos))
+    sueldos_list = list(sueldos.values())
+    sueldo_max = max(sueldos_list)
+    sueldo_min = min(sueldos_list)
+    promedio = sum(sueldos_list) / len(sueldos_list)
+    media_geom = math.exp(sum(math.log(s) for s in sueldos_list) / len(sueldos_list))
 
     #impimir
     print("\nEstadísticas:")
@@ -100,8 +106,8 @@ def reporte_sueldos():
     
     with open('reporte_sueldos.csv', 'w', newline='') as csvfile:
         # darle los nombres a las colujmnas
-        nombre_arch = ['Nombre empleado', 'Sueldo Base', 'Descuento Salud', 'Descuento AFP', 'Sueldo Líquido']
-        writer = csv.DictWriter(csvfile, nombre_arch=nombre_arch)
+        fieldnames = ['Nombre empleado', 'Sueldo Base', 'Descuento Salud', 'Descuento AFP', 'Sueldo Líquido']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         # escribir los encabezads
         writer.writeheader()
@@ -123,7 +129,7 @@ def reporte_sueldos():
     #Funcion para dsalir del progrmama
 def salir():
     print("Finalizando programa...")
-    print("\nNombre: Daniela Gómez Palacios, \nRUT: 18.593.726-7")
+    print("\nNombre: Daniela Gómez Palacios \nRUT: 18.593.726-7")
 
 
 
